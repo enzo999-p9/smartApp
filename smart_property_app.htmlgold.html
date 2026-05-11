@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Property - AI-Powered Real Estate</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --black-soft: #2a2a2a;
+            --gold: #c9a96e;
+            --gold-light: #d4b87a;
+            --gold-dark: #a88b55;
+            --grey: #6b6b6b;
+            --grey-light: #9a9a9a;
+            --grey-bg: #f0ede8;
+            --white: #ffffff;
+            --beige: #f5f0e8;
+            --beige-dark: #e8e0d4;
+            --beige-warm: #faf6f0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --gradient-gold: linear-gradient(135deg, #c9a96e 0%, #d4b87a 50%, #e8d5a3 100%);
+            --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--beige-warm);
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* ========== LOGIN PAGE ========== */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-page::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        .login-container {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+            border: 1px solid var(--beige-dark);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-logo svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+        }
+
+        .login-logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--black);
+        }
+
+        .login-logo p {
+            color: var(--grey);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            border: 2px solid var(--beige-dark);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--beige-warm);
+            color: var(--black);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(201,169,110,0.15);
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 16px;
+            top: 42px;
+            color: var(--grey);
+            font-size: 16px;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--grey);
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--gold);
+        }
+
+        .forgot-password {
+            color: var(--gold-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: var(--black);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: var(--black);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201,169,110,0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: var(--grey);
+            font-size: 13px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--beige-dark);
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--beige-dark);
+            background: var(--white);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--black);
+        }
+
+        .social-btn:hover {
+            border-color: var(--gold);
+            background: var(--beige-warm);
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 14px;
+            color: var(--grey);
+        }
+
+        .signup-link a {
+            color: var(--gold-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ========== APP PAGES ========== */
+        .app-page {
+            display: none;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .app-page.active {
+            display: block;
+        }
+
+        /* ========== HEADER ========== */
+        .app-header {
+            background: var(--black);
+            color: var(--gold);
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .header-logo span {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-actions button {
+            background: rgba(201,169,110,0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .header-actions button:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+        }
+
+        /* ========== HOME SCREEN ========== */
+        .home-hero {
+            background: var(--black);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .home-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(201,169,110,0.05);
+            border-radius: 50%;
+        }
+
+        .home-hero h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            color: var(--gold);
+        }
+
+        .home-hero p {
+            opacity: 0.7;
+            margin-bottom: 24px;
+            position: relative;
+            color: var(--beige);
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 16px 20px 16px 52px;
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: var(--shadow-lg);
+            background: var(--black-light);
+            color: var(--white);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--grey);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .section {
+            padding: 32px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .see-all {
+            color: var(--gold-dark);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .property-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--beige-dark);
+        }
+
+        .property-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--gold);
+        }
+
+        .property-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .property-badge.rent {
+            background: var(--grey);
+            color: var(--white);
+        }
+
+        .property-favorite {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--beige-dark);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--grey);
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .property-favorite:hover, .property-favorite.active {
+            background: var(--black);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .property-info {
+            padding: 16px;
+        }
+
+        .property-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+
+        .property-price span {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--grey);
+        }
+
+        .property-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--grey);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 16px;
+            padding-top: 12px;
+            border-top: 1px solid var(--beige-dark);
+        }
+
+        .property-feature {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--grey);
+        }
+
+        .property-feature i {
+            color: var(--gold-dark);
+        }
+
+        .ai-recommendation {
+            background: var(--black);
+            color: var(--gold);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .ai-recommendation::before {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 150px;
+            height: 150px;
+            background: rgba(201,169,110,0.05);
+            border-radius: 50%;
+        }
+
+        .ai-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(201,169,110,0.15);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .ai-text h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            color: var(--gold);
+        }
+
+        .ai-text p {
+            opacity: 0.8;
+            font-size: 14px;
+            color: var(--beige);
+        }
+
+        /* ========== PROPERTY DETAIL ========== */
+        .property-detail-hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .property-detail-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .property-detail-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(10,10,10,0.9));
+            padding: 40px 20px 20px;
+            color: var(--white);
+        }
+
+        .detail-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(10,10,10,0.7);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .detail-action-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(10,10,10,0.7);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .detail-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .detail-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--beige);
+            margin-bottom: 24px;
+        }
+
+        .detail-features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .detail-feature-item {
+            background: var(--white);
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--beige-dark);
+        }
+
+        .detail-feature-item i {
+            font-size: 24px;
+            color: var(--gold-dark);
+            margin-bottom: 8px;
+        }
+
+        .detail-feature-item .value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .detail-feature-item .label {
+            font-size: 12px;
+            color: var(--grey);
+        }
+
+        .detail-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .detail-section p {
+            color: var(--grey);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .ai-valuation {
+            background: var(--black);
+            color: var(--gold);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            border: 2px solid var(--gold);
+        }
+
+        .ai-valuation-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ai-valuation-header i {
+            font-size: 24px;
+        }
+
+        .valuation-chart {
+            height: 120px;
+            background: rgba(201,169,110,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-end;
+            padding: 16px;
+            gap: 8px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: rgba(201,169,110,0.3);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+        }
+
+        .chart-bar.active {
+            background: var(--gold);
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 12px;
+            position: sticky;
+            bottom: 90px;
+            background: var(--white);
+            padding: 16px;
+            margin: 0 -20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            border-top: 2px solid var(--gold);
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .contact-btn.primary {
+            background: var(--black);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .contact-btn.primary:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .contact-btn.secondary {
+            background: var(--beige-warm);
+            color: var(--black);
+            border: 2px solid var(--beige-dark);
+        }
+
+        .contact-btn.secondary:hover {
+            border-color: var(--gold);
+        }
+
+        /* ========== PROFILE PAGE ========== */
+        .profile-header {
+            background: var(--black);
+            color: var(--gold);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--black);
+            border: 4px solid var(--beige-dark);
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--gold);
+        }
+
+        .profile-email {
+            opacity: 0.7;
+            font-size: 14px;
+            color: var(--beige);
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .profile-stat .label {
+            font-size: 13px;
+            opacity: 0.8;
+            color: var(--beige);
+        }
+
+        .profile-menu {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        .menu-group {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--beige-dark);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--beige-dark);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            background: var(--beige-warm);
+        }
+
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 18px;
+        }
+
+        .menu-icon.blue { background: rgba(201,169,110,0.1); color: var(--gold-dark); }
+        .menu-icon.green { background: rgba(201,169,110,0.1); color: var(--gold); }
+        .menu-icon.orange { background: rgba(201,169,110,0.1); color: var(--gold-dark); }
+        .menu-icon.purple { background: rgba(201,169,110,0.1); color: var(--gold); }
+        .menu-icon.red { background: rgba(201,169,110,0.1); color: #c9a96e; }
+
+        .menu-text {
+            flex: 1;
+        }
+
+        .menu-text .title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--black);
+        }
+
+        .menu-text .subtitle {
+            font-size: 13px;
+            color: var(--grey);
+        }
+
+        .menu-arrow {
+            color: var(--grey);
+        }
+
+        /* ========== FAVORITES ========== */
+        .favorites-empty {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .favorites-empty i {
+            font-size: 64px;
+            color: var(--beige-dark);
+            margin-bottom: 16px;
+        }
+
+        .favorites-empty h3 {
+            font-size: 20px;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .favorites-empty p {
+            color: var(--grey);
+        }
+
+        /* ========== BOTTOM NAV ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--black);
+            border-top: 2px solid var(--gold);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--grey);
+            text-decoration: none;
+            border: none;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+        }
+
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .nav-item.active {
+            color: var(--gold);
+        }
+
+        .nav-item.active i {
+            transform: translateY(-2px);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .login-container {
+                margin: 16px;
+                padding: 32px 24px;
+            }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--black);
+            color: var(--gold);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gold);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== LOGIN PAGE ========== -->
+    <div id="loginPage" class="login-page">
+        <div class="login-container">
+            <div class="login-logo">
+                <!-- Smart Property Logo SVG -->
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="20" fill="var(--black)" stroke="#c9a96e" stroke-width="3"/>
+                    <path d="M50 15L20 40V85H40V60H60V85H80V40L50 15Z" fill="#c9a96e" opacity="0.95"/>
+                    <path d="M50 25L30 42V75H35V50H65V75H70V42L50 25Z" fill="#c9a96e" opacity="0.3"/>
+                </svg>
+                <h1>Smart Property</h1>
+                <p>AI-Powered Real Estate Platform</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Enter your email" value="user@smartproperty.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Enter your password" value="password123" required>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" checked>
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-login">
+                <button class="social-btn" onclick="showToast('Google login coming soon')">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button class="social-btn" onclick="showToast('Apple login coming soon')">
+                    <i class="fab fa-apple"></i>
+                </button>
+                <button class="social-btn" onclick="showToast('Facebook login coming soon')">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="#">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HOME SCREEN ========== -->
+    <div id="homePage" class="app-page">
+        <div class="app-header">
+            <div class="header-content">
+                <div class="header-logo">
+                    <svg viewBox="0 0 36 36" fill="none">
+                        <rect width="36" height="36" rx="8" fill="#0a0a0a" stroke="#c9a96e" stroke-width="1.5"/>
+                        <path d="M18 5L6 15V31H14V20H22V31H30V15L18 5Z" fill="#c9a96e"/>
+                    </svg>
+                    <span>Smart Property</span>
+                </div>
+                <div class="header-actions">
+                    <button onclick="showToast('Notifications')">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="user-avatar" onclick="navigateTo('profile')">JD</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-hero">
+            <h2>Find Your Dream Home</h2>
+            <p>AI-powered property recommendations tailored for you</p>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search by location, property type..." id="searchInput">
+            </div>
+            <div class="search-filters">
+                <span class="filter-chip active">All</span>
+                <span class="filter-chip">Buy</span>
+                <span class="filter-chip">Rent</span>
+                <span class="filter-chip">Apartment</span>
+                <span class="filter-chip">Villa</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="ai-recommendation">
+                <div class="ai-icon">🤖</div>
+                <div class="ai-text">
+                    <h3>AI Recommendation</h3>
+                    <p>Based on your preferences, we found 12 properties that match your criteria perfectly.</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Featured Properties</h2>
+                <a href="#" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="property-grid" id="featuredProperties"></div>
+        </div>
+
+        <div class="section" style="background: var(--beige-warm);">
+            <div class="section-header">
+                <h2 class="section-title">New Listings</h2>
+                <a href="#" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            <div class="property-grid" id="newProperties"></div>
+        </div>
+    </div>
+
+    <!-- ========== PROPERTY DETAIL ========== -->
+    <div id="propertyPage" class="app-page">
+        <div class="property-detail-hero" id="detailHero">
+            <img src="" alt="Property" id="detailImage">
+            <button class="detail-back" onclick="navigateTo('home')">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="detail-actions">
+                <button class="detail-action-btn" onclick="toggleFavoriteDetail()">
+                    <i class="far fa-heart" id="detailHeart"></i>
+                </button>
+                <button class="detail-action-btn" onclick="showToast('Shared')">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+            <div class="property-detail-overlay">
+                <div class="detail-price" id="detailPrice"></div>
+                <div class="detail-title" id="detailTitle"></div>
+                <div class="detail-location" id="detailLocation"></div>
+            </div>
+        </div>
+
+        <div class="detail-content">
+            <div class="detail-features-grid">
+                <div class="detail-feature-item">
+                    <i class="fas fa-bed"></i>
+                    <div class="value" id="detailBeds">3</div>
+                    <div class="label">Bedrooms</div>
+                </div>
+                <div class="detail-feature-item">
+                    <i class="fas fa-bath"></i>
+                    <div class="value" id="detailBaths">2</div>
+                    <div class="label">Bathrooms</div>
+                </div>
+                <div class="detail-feature-item">
+                    <i class="fas fa-ruler-combined"></i>
+                    <div class="value" id="detailArea">180</div>
+                    <div class="label">Sq Meters</div>
+                </div>
+            </div>
+
+            <div class="ai-valuation">
+                <div class="ai-valuation-header">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <div style="font-weight:700">AI Valuation</div>
+                        <div style="font-size:13px; opacity:0.8">Market trend analysis</div>
+                    </div>
+                </div>
+                <div class="valuation-chart">
+                    <div class="chart-bar" style="height:40%"></div>
+                    <div class="chart-bar" style="height:55%"></div>
+                    <div class="chart-bar" style="height:45%"></div>
+                    <div class="chart-bar" style="height:70%"></div>
+                    <div class="chart-bar" style="height:60%"></div>
+                    <div class="chart-bar active" style="height:85%"></div>
+                    <div class="chart-bar" style="height:75%"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:13px; opacity:0.9">
+                    <span>6 months ago</span>
+                    <span style="font-weight:700">Current: +12.5%</span>
+                    <span>Forecast</span>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Description</h3>
+                <p id="detailDescription">This stunning modern property features open-concept living spaces, premium finishes, and smart home integration. Located in a prime area with excellent access to schools, shopping, and public transportation.</p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Amenities</h3>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px">
+                    <span style="background:var(--beige-warm); padding:8px 16px; border-radius:20px; font-size:13px; color:var(--grey); border:1px solid var(--beige-dark)">
+                        <i class="fas fa-swimming-pool" style="margin-right:6px; color:var(--gold-dark)"></i>Pool
+                    </span>
+                    <span style="background:var(--beige-warm); padding:8px 16px; border-radius:20px; font-size:13px; color:var(--grey); border:1px solid var(--beige-dark)">
+                        <i class="fas fa-dumbbell" style="margin-right:6px; color:var(--gold-dark)"></i>Gym
+                    </span>
+                    <span style="background:var(--beige-warm); padding:8px 16px; border-radius:20px; font-size:13px; color:var(--grey); border:1px solid var(--beige-dark)">
+                        <i class="fas fa-shield-alt" style="margin-right:6px; color:var(--gold-dark)"></i>Security
+                    </span>
+                    <span style="background:var(--beige-warm); padding:8px 16px; border-radius:20px; font-size:13px; color:var(--grey); border:1px solid var(--beige-dark)">
+                        <i class="fas fa-car" style="margin-right:6px; color:var(--gold-dark)"></i>Parking
+                    </span>
+                    <span style="background:var(--beige-warm); padding:8px 16px; border-radius:20px; font-size:13px; color:var(--grey); border:1px solid var(--beige-dark)">
+                        <i class="fas fa-wifi" style="margin-right:6px; color:var(--gold-dark)"></i>Smart Home
+                    </span>
+                </div>
+            </div>
+
+            <div class="contact-buttons">
+                <button class="contact-btn secondary" onclick="showToast('Message sent')">
+                    <i class="fas fa-comment"></i> Message
+                </button>
+                <button class="contact-btn primary" onclick="showToast('Calling agent...')">
+                    <i class="fas fa-phone"></i> Call Agent
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROFILE PAGE ========== -->
+    <div id="profilePage" class="app-page">
+        <div class="app-header">
+            <div class="header-content">
+                <div class="header-logo">
+                    <svg viewBox="0 0 36 36" fill="none">
+                        <rect width="36" height="36" rx="8" fill="#0a0a0a" stroke="#c9a96e" stroke-width="1.5"/>
+                        <path d="M18 5L6 15V31H14V20H22V31H30V15L18 5Z" fill="#c9a96e"/>
+                    </svg>
+                    <span>Smart Property</span>
+                </div>
+                <div class="header-actions">
+                    <button onclick="showToast('Settings')">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-header">
+            <div class="profile-avatar">JD</div>
+            <div class="profile-name">John Doe</div>
+            <div class="profile-email">john.doe@email.com</div>
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <div class="number" id="savedCount">0</div>
+                    <div class="label">Saved</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="number">12</div>
+                    <div class="label">Viewed</div>
+                </div>
+                <div class="profile-stat">
+                    <div class="number">5</div>
+                    <div class="label">Contacted</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-menu">
+            <div class="menu-group">
+                <div class="menu-item" onclick="navigateTo('favorites')">
+                    <div class="menu-icon red"><i class="fas fa-heart"></i></div>
+                    <div class="menu-text">
+                        <div class="title">My Favorites</div>
+                        <div class="subtitle">Properties you've saved</div>
+                    </div>
+                    <i class="fas fa-chevron-right menu-arrow"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('Coming soon')">
+                    <div class="menu-icon blue"><i class="fas fa-search"></i></div>
+                    <div class="menu-text">
+                        <div class="title">Saved Searches</div>
+                        <div class="subtitle">Your search preferences</div>
+                    </div>
+                    <i class="fas fa-chevron-right menu-arrow"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('Coming soon')">
+                    <div class="menu-icon green"><i class="fas fa-bell"></i></div>
+                    <div class="menu-text">
+                        <div class="title">Notifications</div>
+                        <div class="subtitle">Price alerts and updates</div>
+                    </div>
+                    <i class="fas fa-chevron-right menu-arrow"></i>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-item" onclick="showToast('Coming soon')">
+                    <div class="menu-icon purple"><i class="fas fa-user-edit"></i></div>
+                    <div class="menu-text">
+                        <div class="title">Edit Profile</div>
+                        <div class="subtitle">Update your information</div>
+                    </div>
+                    <i class="fas fa-chevron-right menu-arrow"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('Coming soon')">
+                    <div class="menu-icon orange"><i class="fas fa-shield-alt"></i></div>
+                    <div class="menu-text">
+                        <div class="title">Privacy & Security</div>
+                        <div class="subtitle">Password and authentication</div>
+                    </div>
+                    <i class="fas fa-chevron-right menu-arrow"></i>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <div class="menu-item" onclick="logout()">
+                    <div class="menu-icon red"><i class="fas fa-sign-out-alt"></i></div>
+                    <div class="menu-text">
+                        <div class="title">Logout</div>
+                        <div class="subtitle">Sign out of your account</div>
+                    </div>
+                    <i class="fas fa-chevron-right menu-arrow"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FAVORITES PAGE ========== -->
+    <div id="favoritesPage" class="app-page">
+        <div class="app-header">
+            <div class="header-content">
+                <div class="header-logo">
+                    <svg viewBox="0 0 36 36" fill="none">
+                        <rect width="36" height="36" rx="8" fill="#0a0a0a" stroke="#c9a96e" stroke-width="1.5"/>
+                        <path d="M18 5L6 15V31H14V20H22V31H30V15L18 5Z" fill="#c9a96e"/>
+                    </svg>
+                    <span>Smart Property</span>
+                </div>
+                <div class="header-actions">
+                    <button onclick="showToast('Notifications')">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">My Favorites</h2>
+            </div>
+            <div id="favoritesList"></div>
+        </div>
+    </div>
+
+    <!-- ========== BOTTOM NAVIGATION ========== -->
+    <nav class="bottom-nav" id="bottomNav" style="display:none;">
+        <button class="nav-item active" onclick="navigateTo('home')" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" onclick="navigateTo('favorites')" data-page="favorites">
+            <i class="fas fa-heart"></i>
+            <span>Favorites</span>
+        </button>
+        <button class="nav-item" onclick="showToast('Add Property - Coming soon')">
+            <i class="fas fa-plus-circle" style="font-size:28px; color:var(--gold)"></i>
+            <span>List</span>
+        </button>
+        <button class="nav-item" onclick="showToast('Messages - Coming soon')">
+            <i class="fas fa-comment"></i>
+            <span>Chat</span>
+        </button>
+        <button class="nav-item" onclick="navigateTo('profile')" data-page="profile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </button>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ========== PROPERTY DATA ==========
+        const properties = [
+            {
+                id: 1,
+                title: "Modern Luxury Villa",
+                location: "New Cairo, Egypt",
+                price: "EGP 8,500,000",
+                priceValue: 8500000,
+                type: "sale",
+                beds: 4,
+                baths: 3,
+                area: 320,
+                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop",
+                description: "Stunning modern villa with private garden, swimming pool, and smart home features. Located in the most prestigious compound in New Cairo with 24/7 security.",
+                favorite: false
+            },
+            {
+                id: 2,
+                title: "Downtown Apartment",
+                location: "Zamalek, Cairo",
+                price: "EGP 25,000/mo",
+                priceValue: 25000,
+                type: "rent",
+                beds: 2,
+                baths: 2,
+                area: 150,
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop",
+                description: "Elegant furnished apartment in the heart of Zamalek. Walking distance to cafes, restaurants, and the Nile corniche. Perfect for expats and professionals.",
+                favorite: false
+            },
+            {
+                id: 3,
+                title: "Smart Home Penthouse",
+                location: "Sheikh Zayed, Giza",
+                price: "EGP 12,000,000",
+                priceValue: 12000000,
+                type: "sale",
+                beds: 3,
+                baths: 3,
+                area: 280,
+                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop",
+                description: "Ultra-modern penthouse with panoramic city views, rooftop terrace, and full AI home automation system. Includes private elevator access.",
+                favorite: false
+            },
+            {
+                id: 4,
+                title: "Cozy Family Home",
+                location: "6th of October City",
+                price: "EGP 5,200,000",
+                priceValue: 5200000,
+                type: "sale",
+                beds: 3,
+                baths: 2,
+                area: 200,
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop",
+                description: "Beautiful family home in a quiet neighborhood. Features a spacious backyard, modern kitchen, and proximity to international schools.",
+                favorite: false
+            },
+            {
+                id: 5,
+                title: "Sea View Chalet",
+                location: "North Coast, Sahel",
+                price: "EGP 18,000/mo",
+                priceValue: 18000,
+                type: "rent",
+                beds: 3,
+                baths: 2,
+                area: 180,
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop",
+                description: "Beachfront chalet with direct sea access. Fully furnished with modern amenities. Perfect summer retreat with private beach area.",
+                favorite: false
+            },
+            {
+                id: 6,
+                title: "Investment Studio",
+                location: "New Capital, Cairo",
+                price: "EGP 2,800,000",
+                priceValue: 2800000,
+                type: "sale",
+                beds: 1,
+                baths: 1,
+                area: 75,
+                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop",
+                description: "High-yield investment opportunity in the New Capital. Prime location near the central business district with excellent rental potential.",
+                favorite: false
+            }
+        ];
+
+        let currentProperty = null;
+        let favorites = JSON.parse(localStorage.getItem('smartPropertyFavorites')) || [];
+
+        // ========== NAVIGATION ==========
+        function navigateTo(page) {
+            document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            if (page === 'home') {
+                document.getElementById('homePage').classList.add('active');
+                document.querySelector('[data-page="home"]').classList.add('active');
+                renderProperties();
+            } else if (page === 'property') {
+                document.getElementById('propertyPage').classList.add('active');
+            } else if (page === 'profile') {
+                document.getElementById('profilePage').classList.add('active');
+                document.querySelector('[data-page="profile"]').classList.add('active');
+                updateProfileStats();
+            } else if (page === 'favorites') {
+                document.getElementById('favoritesPage').classList.add('active');
+                document.querySelector('[data-page="favorites"]').classList.add('active');
+                renderFavorites();
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // ========== LOGIN ==========
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('bottomNav').style.display = 'flex';
+            navigateTo('home');
+            showToast('Welcome back, John!');
+        });
+
+        function logout() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('bottomNav').style.display = 'none';
+            document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active'));
+            showToast('Logged out successfully');
+        }
+
+        // ========== RENDER PROPERTIES ==========
+        function renderProperties() {
+            const featured = properties.slice(0, 3);
+            const newListings = properties.slice(3, 6);
+
+            document.getElementById('featuredProperties').innerHTML = featured.map((p, i) => createPropertyCard(p, i)).join('');
+            document.getElementById('newProperties').innerHTML = newListings.map((p, i) => createPropertyCard(p, i + 3)).join('');
+        }
+
+        function createPropertyCard(property, index) {
+            const isFav = favorites.includes(property.id);
+            return `
+                <div class="property-card fade-in stagger-${(index % 4) + 1}" onclick="openProperty(${property.id})">
+                    <div class="property-image">
+                        <img src="${property.image}" alt="${property.title}" loading="lazy">
+                        <span class="property-badge ${property.type === 'rent' ? 'rent' : ''}">${property.type === 'sale' ? 'For Sale' : 'For Rent'}</span>
+                        <button class="property-favorite ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${property.id})" data-id="${property.id}">
+                            <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-price">${property.price}</div>
+                        <div class="property-title">${property.title}</div>
+                        <div class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${property.location}
+                        </div>
+                        <div class="property-features">
+                            <div class="property-feature">
+                                <i class="fas fa-bed"></i>
+                                ${property.beds} Beds
+                            </div>
+                            <div class="property-feature">
+                                <i class="fas fa-bath"></i>
+                                ${property.baths} Baths
+                            </div>
+                            <div class="property-feature">
+                                <i class="fas fa-ruler-combined"></i>
+                                ${property.area} m²
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========== PROPERTY DETAIL ==========
+        function openProperty(id) {
+            currentProperty = properties.find(p => p.id === id);
+            if (!currentProperty) return;
+
+            document.getElementById('detailImage').src = currentProperty.image;
+            document.getElementById('detailPrice').textContent = currentProperty.price;
+            document.getElementById('detailTitle').textContent = currentProperty.title;
+            document.getElementById('detailLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${currentProperty.location}`;
+            document.getElementById('detailBeds').textContent = currentProperty.beds;
+            document.getElementById('detailBaths').textContent = currentProperty.baths;
+            document.getElementById('detailArea').textContent = currentProperty.area;
+            document.getElementById('detailDescription').textContent = currentProperty.description;
+
+            const heartIcon = document.getElementById('detailHeart');
+            if (favorites.includes(id)) {
+                heartIcon.classList.remove('far');
+                heartIcon.classList.add('fas');
+            } else {
+                heartIcon.classList.remove('fas');
+                heartIcon.classList.add('far');
+            }
+
+            navigateTo('property');
+        }
+
+        function toggleFavoriteDetail() {
+            if (currentProperty) {
+                toggleFavorite(currentProperty.id);
+                const heartIcon = document.getElementById('detailHeart');
+                if (favorites.includes(currentProperty.id)) {
+                    heartIcon.classList.remove('far');
+                    heartIcon.classList.add('fas');
+                } else {
+                    heartIcon.classList.remove('fas');
+                    heartIcon.classList.add('far');
+                }
+            }
+        }
+
+        // ========== FAVORITES ==========
+        function toggleFavorite(id) {
+            const index = favorites.indexOf(id);
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast('Removed from favorites');
+            } else {
+                favorites.push(id);
+                showToast('Added to favorites');
+            }
+            localStorage.setItem('smartPropertyFavorites', JSON.stringify(favorites));
+
+            // Update UI
+            document.querySelectorAll(`.property-favorite[data-id="${id}"]`).forEach(btn => {
+                const icon = btn.querySelector('i');
+                if (favorites.includes(id)) {
+                    btn.classList.add('active');
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                } else {
+                    btn.classList.remove('active');
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                }
+            });
+
+            updateProfileStats();
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favoritesList');
+            if (favorites.length === 0) {
+                container.innerHTML = `
+                    <div class="favorites-empty">
+                        <i class="far fa-heart"></i>
+                        <h3>No Favorites Yet</h3>
+                        <p>Start exploring and save properties you love</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const favProperties = properties.filter(p => favorites.includes(p.id));
+            container.innerHTML = `<div class="property-grid">${favProperties.map((p, i) => createPropertyCard(p, i)).join('')}</div>`;
+        }
+
+        function updateProfileStats() {
+            document.getElementById('savedCount').textContent = favorites.length;
+        }
+
+        // ========== TOAST ==========
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ========== SEARCH ==========
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            if (term.length < 2) {
+                renderProperties();
+                return;
+            }
+
+            const filtered = properties.filter(p => 
+                p.title.toLowerCase().includes(term) || 
+                p.location.toLowerCase().includes(term)
+            );
+
+            document.getElementById('featuredProperties').innerHTML = filtered.map((p, i) => createPropertyCard(p, i)).join('');
+            document.getElementById('newProperties').innerHTML = '';
+        });
+
+        // ========== FILTER CHIPS ==========
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.textContent.toLowerCase();
+                if (filter === 'all') {
+                    renderProperties();
+                    return;
+                }
+
+                const filtered = properties.filter(p => {
+                    if (filter === 'buy') return p.type === 'sale';
+                    if (filter === 'rent') return p.type === 'rent';
+                    return p.title.toLowerCase().includes(filter);
+                });
+
+                document.getElementById('featuredProperties').innerHTML = filtered.map((p, i) => createPropertyCard(p, i)).join('');
+                document.getElementById('newProperties').innerHTML = '';
+            });
+        });
+
+        // ========== INIT ==========
+        renderProperties();
+        updateProfileStats();
+    </script>
+</body>
+</html>
